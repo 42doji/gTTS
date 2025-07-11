@@ -41,16 +41,24 @@ def calc(numA, numB, op):
     if op == '*':
         return multiply(numA, numB)
 
+def is_devided_by_zero(a: int, b: int, op):
+    if a == 0 or b == 0:
+        if op == '/':
+            raise ValueError
+
 if __name__ == "__main__":
     ops = "+-*/"
     expression = input("Enter expression: ")
     try: 
         count_ops(expression, ops)
     except ValueError:
-        print("wrong number of operators")
+        print("Invalid operator.")
     op = get_op(expression, ops)
     numA, numB = expression.split(op)
+    try:
+        is_devided_by_zero(int(numA), int(numB), op)
+    except ValueError:
+        print("Error: Division by zero.")
+        exit()
     res = calc(int(numA), int(numB), op)
     print(res)
-    # todo: devide 0
-    # todo: wrong number input
