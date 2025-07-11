@@ -52,3 +52,5 @@ if __name__ == "__main__":
     numA, numB = expression.split(op)
     res = calc(int(numA), int(numB), op)
     print(res)
+    # todo: devide 0
+    # todo: wrong number input
