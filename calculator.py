@@ -42,7 +42,7 @@ def calc(numA, numB, op):
         return multiply(numA, numB)
 
 def is_devided_by_zero(a: int, b: int, op):
-    if a == 0 or b == 0:
+    if b == 0:
         if op == '/':
             raise ValueError
 
