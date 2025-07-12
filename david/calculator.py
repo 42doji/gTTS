@@ -18,18 +18,27 @@ def is_operator(character, ops) -> bool:
 
 def count_ops(string: str, ops):
     count = 0
-    for character in string:
-        if is_operator(character, ops) == True:
+    string = string.split()
+    nums = [arg for arg in string if arg.isnumeric() == True]
+    if len(nums) != 2:
+        raise ValueError
+    elses = [arg for arg in string if arg.isnumeric() == False]
+    for el in elses:
+        if is_operator(el, ops) == True:
             count += 1
-            op = character
+            op = el
     if count != 1:
         raise ValueError
 
-def get_op(characters , ops) -> str:
-    for character in characters:
-        for op in ops:
-            if op == character:
-                return op
+def get_op(string , ops) -> str:
+    string = string.split()
+    nums = [arg for arg in string if arg.isnumeric() == True]
+    if len(nums) != 2:
+        raise ValueError
+    elses = [arg for arg in string if arg.isnumeric() == False]
+    for el in elses:
+        if is_operator(el, ops) == True:
+            return el
 
 def calc(numA, numB, op):
     if op == '+':
@@ -46,15 +55,16 @@ def is_devided_by_zero(a: int, b: int, op):
         if op == '/':
             raise ValueError
 
-if __name__ == "__main__":
-    ops = "+-*/"
-    expression = input("Enter expression: ")
+def main(expression, ops):
     try: 
         count_ops(expression, ops)
     except ValueError:
         print("Invalid operator.")
+        exit()
     op = get_op(expression, ops)
-    numA, numB = expression.split(op)
+    expression = expression.split()
+    args = [el for el in expression if is_operator(el, ops) == False]
+    numA, numB = args
     try:
         is_devided_by_zero(int(numA), int(numB), op)
     except ValueError:
@@ -62,3 +72,11 @@ if __name__ == "__main__":
         exit()
     res = calc(int(numA), int(numB), op)
     print(res)
+
+if __name__ == "__main__":
+    ops = "+-*/"
+    numbers = input("Enter number: ")
+    op = input("Enter operator: ")
+    main(numbers + " " + op, ops)
+    expression = input("Enter expression: ")
+    main(expression, ops)
